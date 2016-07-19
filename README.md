@@ -1,2 +1,2 @@
-# Kill UpWrok
-Kill UpWork After 20m if pc is ideal
+# Kill PP
+Kill Process(default: upwork.exe) by name if windows idle for some time(default: 20m)
