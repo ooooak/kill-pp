@@ -33,8 +33,10 @@ void killProcessByName(const char *filename)
 int main()
 {   
     int killed = 0;
-    int maxSec = 20 * 60;
-    const char * processName = "upwork.exe";
+    int maxSec = 1 * 60;  // 20m
+    int sleepTime = 10 * 1000;  // sleep 15 seconds
+    const char *processName = "upwork.exe";
+
 
     LASTINPUTINFO plii;
     plii.cbSize  = sizeof(LASTINPUTINFO);
@@ -45,20 +47,26 @@ int main()
         if (GetLastInputInfo(&plii)) 
         { 
             lastInputTicks = (int)((GetTickCount() - plii.dwTime) / 1000);
-
             // if user get up
             if (lastInputTicks == 0)
+            {
                 killed = 0;
+            }
 
             // if once killed dont bother next time until user get up
-            if (maxSec < lastInputTicks && killed != 0)
+            if (maxSec < lastInputTicks && killed == 0)
+            {
                 killProcessByName(processName);
+                killed = 1;
+            }
         }
         else
         {
             puts("unable to get last input info");
             exit(1);
         }
+
+        Sleep(sleepTime);
     }
 
     return 0;
