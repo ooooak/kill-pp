@@ -1,0 +1,1 @@
+gcc main.c -o up-killer.exe -std=c99 -Wall -Wextra && ./up-killer.exe
